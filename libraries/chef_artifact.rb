@@ -65,11 +65,7 @@ class Chef
       # 
       # @return [Chef::DataBagItem] the data bag item
       def data_bag_config_for(environment, source)
-        data_bag_item = if Chef::Config[:solo]
-          Chef::DataBagItem.load(DATA_BAG, WILDCARD_DATABAG_ITEM) rescue {}
-        else
-          encrypted_data_bag_for(environment, DATA_BAG)
-        end
+        data_bag_item = encrypted_data_bag_for(WILDCARD_DATABAG_ITEM, DATA_BAG)
 
         # support new format
         return data_bag_item[source] if data_bag_item.has_key?(source)
